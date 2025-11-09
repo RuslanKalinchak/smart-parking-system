@@ -1,0 +1,145 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-tables
+      author: kalinchak_ruslan
+      changes:
+        - createTable:
+            tableName: parking_lots
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: parking_levels
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: level_number
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: parking_lot_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: parking_levels
+            baseColumnNames: parking_lot_id
+            referencedTableName: parking_lots
+            referencedColumnNames: id
+            constraintName: fk_parking_level_lot
+        - createTable:
+            tableName: parking_slots
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: slot_code
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: parking_slots
+            baseColumnNames: level_id
+            referencedTableName: parking_levels
+            referencedColumnNames: id
+            constraintName: fk_parking_slots_level
+        - addUniqueConstraint:
+            tableName: parking_slots
+            columnNames: level_id, slot_code
+            constraintName: uq_parking_slots_unique_code_per_level
+        - createTable:
+            tableName: vehicles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: license_plate
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: vehicle_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: parking_tickets
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: vehicle_license_plate
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: parking_slot_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entry_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exit_time
+                  type: TIMESTAMP
+              - column:
+                  name: fee
+                  type: DECIMAL(10,2)
+        - addForeignKeyConstraint:
+            baseTableName: parking_ticket
+            baseColumnNames: parking_slot_id
+            referencedTableName: parking_slots
+            referencedColumnNames: id
+            constraintName: fk_parking_ticket_slot
+        - addForeignKeyConstraint:
+            baseTableName: parking_ticket
+            baseColumnNames: vehicle_license_plate
+            referencedTableName: vehicles
+            referencedColumnNames: license_plate
+            constraintName: fk_parking_ticket_vehicle
