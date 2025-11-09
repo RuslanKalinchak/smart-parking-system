@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15.10
+    container_name: smart-parking-system-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: smart-parking-system-db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:
