@@ -86,23 +86,19 @@ databaseChangeLog:
             tableName: vehicles
             columns:
               - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
                   name: license_plate
                   type: VARCHAR(50)
                   constraints:
                     primaryKey: true
+                    nullable: false
+                    unique: true
               - column:
                   name: vehicle_type
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
         - createTable:
-            tableName: parking_tickets
+            tableName: parking_check_in_tickets
             columns:
               - column:
                   name: id
@@ -125,21 +121,46 @@ databaseChangeLog:
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-              - column:
-                  name: exit_time
-                  type: TIMESTAMP
-              - column:
-                  name: fee
-                  type: DECIMAL(10,2)
         - addForeignKeyConstraint:
-            baseTableName: parking_ticket
+            baseTableName: parking_check_in_tickets
             baseColumnNames: parking_slot_id
             referencedTableName: parking_slots
             referencedColumnNames: id
             constraintName: fk_parking_ticket_slot
         - addForeignKeyConstraint:
-            baseTableName: parking_ticket
+            baseTableName: parking_check_in_tickets
             baseColumnNames: vehicle_license_plate
             referencedTableName: vehicles
             referencedColumnNames: license_plate
-            constraintName: fk_parking_ticket_vehicle
+            constraintName: fk_parking_checkin_vehicle
+        - createTable:
+            tableName: parking_check_out_tickets
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: check_in_ticket_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: exit_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fee
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: parking_check_out_tickets
+            baseColumnNames: check_in_ticket_id
+            referencedTableName: parking_check_in_tickets
+            referencedColumnNames: id
+            constraintName: fk_checkout_checkin
