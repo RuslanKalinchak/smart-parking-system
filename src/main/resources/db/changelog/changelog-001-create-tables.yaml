@@ -98,7 +98,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: parking_check_in_tickets
+            tableName: check_in_tickets
             columns:
               - column:
                   name: id
@@ -121,20 +121,25 @@ databaseChangeLog:
                   type: TIMESTAMP
                   constraints:
                     nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
-            baseTableName: parking_check_in_tickets
+            baseTableName: check_in_tickets
             baseColumnNames: parking_slot_id
             referencedTableName: parking_slots
             referencedColumnNames: id
             constraintName: fk_parking_ticket_slot
         - addForeignKeyConstraint:
-            baseTableName: parking_check_in_tickets
+            baseTableName: check_in_tickets
             baseColumnNames: vehicle_license_plate
             referencedTableName: vehicles
             referencedColumnNames: license_plate
             constraintName: fk_parking_checkin_vehicle
         - createTable:
-            tableName: parking_check_out_tickets
+            tableName: check_out_tickets
             columns:
               - column:
                   name: id
@@ -159,8 +164,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: parking_check_out_tickets
+            baseTableName: check_out_tickets
             baseColumnNames: check_in_ticket_id
-            referencedTableName: parking_check_in_tickets
+            referencedTableName: check_in_tickets
             referencedColumnNames: id
             constraintName: fk_checkout_checkin

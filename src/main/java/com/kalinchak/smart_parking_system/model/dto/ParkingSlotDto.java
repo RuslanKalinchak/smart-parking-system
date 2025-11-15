@@ -1,0 +1,11 @@
+package com.kalinchak.smart_parking_system.model.dto;
+
+import com.kalinchak.smart_parking_system.model.ParkingSlot;
+import com.kalinchak.smart_parking_system.model.SlotType;
+
+public record ParkingSlotDto(String slotCode, SlotType type, int levelNumber) {
+
+    public ParkingSlotDto(final ParkingSlot parkingSlot) {
+        this(parkingSlot.getSlotCode(), parkingSlot.getType(), parkingSlot.getParkingLevel().getLevelNumber());
+    }
+}
