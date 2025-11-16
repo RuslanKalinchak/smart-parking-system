@@ -1,5 +1,6 @@
 package com.kalinchak.smart_parking_system.model;
 
+import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -11,10 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "parking_slots", uniqueConstraints = {
@@ -24,6 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ParkingSlot {
 
     @Id
@@ -39,13 +38,9 @@ public class ParkingSlot {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SlotStatus status = SlotStatus.AVAILABLE;
+    private SlotStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
     private ParkingLevel parkingLevel;
-
-    public boolean isAvailable() {
-        return status == SlotStatus.AVAILABLE;
-    }
 }

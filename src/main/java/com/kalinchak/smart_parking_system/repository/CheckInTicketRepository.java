@@ -5,6 +5,7 @@ import com.kalinchak.smart_parking_system.model.CheckInTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +15,6 @@ public interface CheckInTicketRepository extends JpaRepository<CheckInTicket, Lo
             String licensePlate,
             CheckInStatus status
     );
+
+    List<CheckInTicket> findAllByStatus(CheckInStatus status);
 }

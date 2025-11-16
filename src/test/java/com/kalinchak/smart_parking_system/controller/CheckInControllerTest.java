@@ -3,6 +3,7 @@ package com.kalinchak.smart_parking_system.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.kalinchak.smart_parking_system.exception_handler.GlobalExceptionHandler;
 import com.kalinchak.smart_parking_system.model.SlotType;
 import com.kalinchak.smart_parking_system.model.VehicleType;
 import com.kalinchak.smart_parking_system.model.dto.CheckInTicketDto;
@@ -42,6 +43,7 @@ class CheckInControllerTest {
 
         CheckInController checkInController = new CheckInController(checkInService);
         mockMvc = MockMvcBuilders.standaloneSetup(checkInController)
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
 
@@ -50,7 +52,7 @@ class CheckInControllerTest {
         //Given
         VehicleDto vehicle = new VehicleDto("AT7254UB", VehicleType.CAR);
         CheckInTicketDto checkInTicket = new CheckInTicketDto(vehicle, LocalDateTime.now(),
-                new ParkingSlotDto("L3-S2", SlotType.COMPACT, 3));
+                new ParkingSlotDto(12L, "L3-S2", SlotType.COMPACT, 3));
 
         when(checkInService.checkIn(vehicle)).thenReturn(checkInTicket);
 

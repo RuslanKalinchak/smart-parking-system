@@ -1,5 +1,6 @@
 package com.kalinchak.smart_parking_system.controller;
 
+import com.kalinchak.smart_parking_system.exception_handler.GlobalExceptionHandler;
 import com.kalinchak.smart_parking_system.model.dto.CheckOutTicketDto;
 import com.kalinchak.smart_parking_system.service.CheckOutService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,9 @@ public class CheckOutControllerTest {
     @BeforeEach
     void setUp() {
         CheckOutController checkOutController = new CheckOutController(checkOutService);
-        mockMvc = MockMvcBuilders.standaloneSetup(checkOutController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(checkOutController)
+                .setControllerAdvice(new GlobalExceptionHandler())
+                .build();
     }
 
     @Test
