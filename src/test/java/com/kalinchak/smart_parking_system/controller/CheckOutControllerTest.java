@@ -49,7 +49,7 @@ public class CheckOutControllerTest {
         when(checkOutService.checkOut(licensePlate)).thenReturn(checkOutTicket);
 
         //When
-        mockMvc.perform(post("/api/checkout/%s".formatted(licensePlate))
+        mockMvc.perform(post("/api/check-out/%s".formatted(licensePlate))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entryTime").exists())

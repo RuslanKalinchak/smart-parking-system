@@ -56,7 +56,7 @@ class CheckOutControllerIT {
     @Sql(scripts = "/sql/check_out_clean_script.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void givenValidCheckIn_whenVehicleCheckOut_thenSuccessReturnCheckOutTicket(final String licensePlate, final long checkInTicketId) {
         //Given
-        URI uri = UriComponentsBuilder.fromPath("/api/checkout/{licensePlate}")
+        URI uri = UriComponentsBuilder.fromPath("/api/check-out/{licensePlate}")
                 .buildAndExpand(licensePlate).toUri();
 
         String expectedDurationPattern = "^(\\d+ day[s]? )?(\\d+ hour[s]? )?(\\d+ minute[s]? )?(\\d+ second[s]?)$";
