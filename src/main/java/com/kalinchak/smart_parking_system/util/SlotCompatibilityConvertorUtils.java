@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
 import java.util.List;
 
 @UtilityClass
-public class SlotCompatibilityConvertorUtil {
+public class SlotCompatibilityConvertorUtils {
 
     public static List<SlotType> getCompatibleTypes(VehicleType vehicleType) {
         return switch (vehicleType) {

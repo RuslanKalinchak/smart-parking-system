@@ -6,7 +6,8 @@ import com.kalinchak.smart_parking_system.repository.ParkingLevelRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingSlotRepository;
 import com.kalinchak.smart_parking_system.service.ParkingSlotService;
-import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtil;
+import com.kalinchak.smart_parking_system.util.ConverterUtils;
+import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
     @Override
     @Transactional(readOnly = true)
     public ParkingSlot findAvailableParkingSlot(final VehicleType vehicleType) {
-        return parkingSlotRepository.findByTypeInAndStatus(SlotCompatibilityConvertorUtil.getCompatibleTypes(vehicleType), SlotStatus.AVAILABLE).stream()
+        return parkingSlotRepository.findByTypeInAndStatus(SlotCompatibilityConvertorUtils.getCompatibleTypes(vehicleType), SlotStatus.AVAILABLE).stream()
                 .min(Comparator.comparingInt(parkingSlot -> parkingSlot.getType().getSizePriority()))
                 .orElseThrow(() -> new IllegalStateException("No available parking slots"));
     }
@@ -37,12 +38,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         ParkingLevel level = parkingLevelRepository.findByLevelNumberAndParkingLotId(slotDto.levelNumber(), lotId)
                 .orElseThrow(() -> new IllegalArgumentException("Parking level %d for lot %d not found".formatted(slotDto.levelNumber(), lotId)));
 
-        ParkingSlot slot = ParkingSlot.builder()
-                .slotCode(slotDto.slotCode())
-                .type(slotDto.type())
-                .parkingLevel(level)
-                .status(SlotStatus.AVAILABLE)
-                .build();
+        ParkingSlot slot = ConverterUtils.dtoToParkingSlot(slotDto, level);
 
         return new ParkingSlotDto(parkingSlotRepository.save(slot));
     }

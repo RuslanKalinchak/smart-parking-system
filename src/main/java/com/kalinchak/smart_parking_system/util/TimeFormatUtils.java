@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @UtilityClass
-public class TimeFormatUtil {
+public class TimeFormatUtils {
 
     public static String formatDuration(LocalDateTime entryTime, LocalDateTime exitTime) {
 

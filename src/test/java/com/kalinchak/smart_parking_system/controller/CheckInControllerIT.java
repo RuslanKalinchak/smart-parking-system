@@ -7,7 +7,7 @@ import com.kalinchak.smart_parking_system.model.VehicleType;
 import com.kalinchak.smart_parking_system.model.dto.CheckInTicketDto;
 import com.kalinchak.smart_parking_system.model.dto.VehicleDto;
 import com.kalinchak.smart_parking_system.repository.ParkingSlotRepository;
-import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtil;
+import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -72,7 +72,7 @@ class CheckInControllerIT {
         assertThat(actualCheckInTicket.parkingSlotDto()).isNotNull();
 
         assertThat(actualParkingSlot.getStatus()).isEqualTo(SlotStatus.OCCUPIED);
-        assertThat(actualParkingSlot.getType()).isIn(SlotCompatibilityConvertorUtil.getCompatibleTypes(vehicle.vehicleType()));
+        assertThat(actualParkingSlot.getType()).isIn(SlotCompatibilityConvertorUtils.getCompatibleTypes(vehicle.vehicleType()));
     }
 
     static Stream<Arguments> provideCheckInParameters() {
