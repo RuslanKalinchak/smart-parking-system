@@ -3,7 +3,6 @@ package com.kalinchak.smart_parking_system.controller;
 import com.kalinchak.smart_parking_system.controller.configuration.TestContainersConfig;
 import com.kalinchak.smart_parking_system.model.ParkingSlot;
 import com.kalinchak.smart_parking_system.model.SlotStatus;
-import com.kalinchak.smart_parking_system.model.Vehicle;
 import com.kalinchak.smart_parking_system.model.VehicleType;
 import com.kalinchak.smart_parking_system.model.dto.CheckInTicketDto;
 import com.kalinchak.smart_parking_system.model.dto.VehicleDto;
@@ -33,7 +32,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = TestContainersConfig.class)
 @ActiveProfiles("integration-test")
-public class CheckInControllerIT {
+class CheckInControllerIT {
 
     private RestClient restClient;
     @LocalServerPort
@@ -49,7 +48,7 @@ public class CheckInControllerIT {
     @ParameterizedTest
     @MethodSource("provideCheckInParameters")
     @Sql(scripts = "/sql/check_in_clean_script.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    public void givenValidVehicle_whenVehicleCheckIn_thenSuccessReturnCheckInTicket(final Vehicle vehicle) {
+    void givenValidVehicle_whenVehicleCheckIn_thenSuccessReturnCheckInTicket(final VehicleDto vehicle) {
         //Given
         URI uri = UriComponentsBuilder.fromPath("/api/check-in")
                 .build().toUri();
@@ -73,13 +72,14 @@ public class CheckInControllerIT {
         assertThat(actualCheckInTicket.parkingSlotDto()).isNotNull();
 
         assertThat(actualParkingSlot.getStatus()).isEqualTo(SlotStatus.OCCUPIED);
-        assertThat(actualParkingSlot.getType()).isIn(SlotCompatibilityConvertorUtil.getCompatibleTypes(vehicle.getVehicleType()));
+        assertThat(actualParkingSlot.getType()).isIn(SlotCompatibilityConvertorUtil.getCompatibleTypes(vehicle.vehicleType()));
     }
 
     static Stream<Arguments> provideCheckInParameters() {
-        return Stream.of(Arguments.of(new VehicleDto("AA8672BB", VehicleType.MOTORCYCLE),
-                new VehicleDto("RYA6741OP", VehicleType.CAR),
-                new VehicleDto("AY2134LN", VehicleType.TRUCK)));
+        return Stream.of(
+                Arguments.of(new VehicleDto("AA8672BB", VehicleType.MOTORCYCLE)),
+                Arguments.of(new VehicleDto("RYA6741OP", VehicleType.CAR)),
+                Arguments.of(new VehicleDto("AY2134LN", VehicleType.TRUCK)));
     }
 
     @AfterAll

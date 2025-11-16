@@ -22,7 +22,7 @@ import com.kalinchak.smart_parking_system.model.dto.VehicleDto;
 public class Vehicle {
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(name = "license_plate", nullable = false, unique = true)
     private String licensePlate;
 
     @Enumerated(EnumType.STRING)

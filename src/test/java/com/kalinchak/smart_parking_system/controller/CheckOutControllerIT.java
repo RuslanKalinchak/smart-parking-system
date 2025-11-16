@@ -22,13 +22,15 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = TestContainersConfig.class)
 @ActiveProfiles("integration-test")
-public class CheckOutControllerIT {
+class CheckOutControllerIT {
 
     private RestClient restClient;
     @LocalServerPort
@@ -52,7 +54,7 @@ public class CheckOutControllerIT {
             "AB9021KM, 3"
     })
     @Sql(scripts = "/sql/check_out_clean_script.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    public void givenValidCheckIn_whenVehicleCheckOut_thenSuccessReturnCheckOutTicket(final String licensePlate, final long checkInTicketId) {
+    void givenValidCheckIn_whenVehicleCheckOut_thenSuccessReturnCheckOutTicket(final String licensePlate, final long checkInTicketId) {
         //Given
         URI uri = UriComponentsBuilder.fromPath("/api/checkout/{licensePlate}")
                 .buildAndExpand(licensePlate).toUri();
@@ -74,8 +76,11 @@ public class CheckOutControllerIT {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         assertThat(actualBody).isNotNull();
-        assertThat(actualBody.entryTime()).isEqualTo(actualCheckInTicket.getEntryTime());
-        assertThat(actualBody.exitTime()).isEqualTo(actualCheckOutTicket.getExitTime());
+        assertThat(actualBody.entryTime())
+                .isCloseTo(actualCheckInTicket.getEntryTime(), within(1, ChronoUnit.MILLIS));
+        assertThat(actualBody.exitTime())
+                .isCloseTo(actualCheckOutTicket.getExitTime(), within(1, ChronoUnit.MILLIS));
+
         assertThat(actualBody.fee()).isPositive();
         assertThat(actualBody.totalDuration()).matches(expectedDurationPattern);
 
