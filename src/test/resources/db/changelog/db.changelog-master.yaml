@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changelog-001-create-tables.yaml
+  - changeSet:
+      id: 002-insert-data
+      author: kalinchak_ruslan
+      changes:
+        - loadData:
+            file: data/parking_lots.csv
+            tableName: parking_lots
+            separator: ","
+        - loadData:
+            file: data/parking_levels.csv
+            tableName: parking_levels
+            separator: ","
+        - loadData:
+            file: data/parking_slots.csv
+            tableName: parking_slots
+            separator: ","
+        - loadData:
+            file: data/vehicles.csv
+            tableName: vehicles
+            separator: ","
+        - loadData:
+            file: data/check_in_tickets.csv
+            tableName: check_in_tickets
+            separator: ","

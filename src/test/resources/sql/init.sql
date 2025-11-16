@@ -1,0 +1,4 @@
+CREATE DATABASE test_db;
+CREATE USER test_user WITH PASSWORD 'test';
+GRANT ALL PRIVILEGES ON DATABASE test_db TO test_user;
+ALTER DATABASE test_db SET TIMEZONE TO 'Europe/Kyiv';

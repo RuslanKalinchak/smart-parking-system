@@ -1,0 +1,4 @@
+id,vehicle_license_plate,parking_slot_id,entry_time,status
+1,AA1234BB,5,2025-01-10T12:45:00,ACTIVE
+2,CE5482EH,3,2025-01-10T12:30:00,ACTIVE
+3,AB9021KM,1,2025-01-10T13:00:00,ACTIVE

@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: integration-test
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: test
+
+  datasource:
+    url: jdbc:tc:postgresql:15.10:///test_db
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver

@@ -31,13 +31,14 @@ public class CheckOutService {
 
         ParkingSlot parkingSlot = checkInTicket.getParkingSlot();
         parkingSlot.setStatus(SlotStatus.AVAILABLE);
-        parkingSlotRepository.save(parkingSlot);
+        ParkingSlot savedParkingSlot = parkingSlotRepository.save(parkingSlot);
 
         LocalDateTime exitTime = LocalDateTime.now();
         long durationMinutes = Duration.between(checkInTicket.getEntryTime(), exitTime).toMinutes();
         BigDecimal fee = parkingFeeService.calculateFee(checkInTicket.getVehicle().getVehicleType(), durationMinutes);
 
         checkInTicket.setStatus(CheckInStatus.INACTIVE);
+        checkInTicket.setParkingSlot(savedParkingSlot);
         CheckInTicket savedCheckInTicket = checkInTicketRepository.save(checkInTicket);
 
         CheckOutTicket checkOutTicket = CheckOutTicket.builder()
