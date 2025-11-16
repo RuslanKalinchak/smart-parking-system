@@ -31,16 +31,15 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
 
     @Override
     @Transactional
-    public ParkingSlotDto addParkingSlot(final long parkingLotId, final ParkingSlotDto parkingSlotDto) {
-        checkParkingLot(parkingLotId);
+    public ParkingSlotDto addParkingSlot(final long lotId, final ParkingSlotDto slotDto) {
+        checkParkingLot(lotId);
 
-        ParkingLevel level = parkingLevelRepository.findByLevelNumberAndParkingLotId(parkingSlotDto.levelNumber(), parkingLotId)
-                .orElseThrow(() -> new IllegalArgumentException("Parking level %d for lot %d not found".formatted(parkingSlotDto.levelNumber(), parkingLotId)));
+        ParkingLevel level = parkingLevelRepository.findByLevelNumberAndParkingLotId(slotDto.levelNumber(), lotId)
+                .orElseThrow(() -> new IllegalArgumentException("Parking level %d for lot %d not found".formatted(slotDto.levelNumber(), lotId)));
 
         ParkingSlot slot = ParkingSlot.builder()
-                .parkingLevel(level)
-                .slotCode(parkingSlotDto.slotCode())
-                .type(parkingSlotDto.type())
+                .slotCode(slotDto.slotCode())
+                .type(slotDto.type())
                 .parkingLevel(level)
                 .status(SlotStatus.AVAILABLE)
                 .build();
@@ -55,8 +54,8 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         parkingSlotRepository.deleteById(slotId);
     }
 
-    private void checkParkingLot(final long parkingLotId) {
-        parkingLotRepository.findById(parkingLotId).orElseThrow(() -> new IllegalArgumentException("Parking lot %d not found".formatted(parkingLotId)));
+    private void checkParkingLot(final long lotId) {
+        parkingLotRepository.findById(lotId).orElseThrow(() -> new IllegalArgumentException("Parking lot %d not found".formatted(lotId)));
     }
 
     private void checkParkingSlot(final long slotId) {

@@ -7,6 +7,6 @@ import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
 public interface ParkingSlotService {
 
     ParkingSlot findAvailableParkingSlot(final VehicleType vehicleType);
-    ParkingSlotDto addParkingSlot(final long parkingLotId, final ParkingSlotDto parkingSlotDto);
+    ParkingSlotDto addParkingSlot(final long lotId, final ParkingSlotDto slotDto);
     void removeParkingSlot(final long slotId);
 }

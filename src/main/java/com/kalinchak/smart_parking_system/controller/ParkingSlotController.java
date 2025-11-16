@@ -7,22 +7,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/slots")
 @RequiredArgsConstructor
 public class ParkingSlotController {
 
     private final ParkingSlotService parkingSlotService;
 
-    @PostMapping("/lots/{lotId}/add-slot")
+    @PostMapping("/add-slot")
     public ResponseEntity<ParkingSlotDto> addParkingSlot(
-            @PathVariable Long lotId,
+            @RequestParam Long lotId,
             @RequestBody ParkingSlotDto slot) {
         ParkingSlotDto savedSlot = parkingSlotService.addParkingSlot(lotId, slot);
         return ResponseEntity.ok(savedSlot);
     }
 
-    @DeleteMapping("/slots/remove-slot/{slotId}")
-    public ResponseEntity<Void> removeParkingSlot(@PathVariable Long slotId) {
+    @DeleteMapping("/remove-slot/{slotId}")
+    public ResponseEntity<Void> removeParkingSlot(@PathVariable long slotId) {
         parkingSlotService.removeParkingSlot(slotId);
         return ResponseEntity.ok().build();
     }

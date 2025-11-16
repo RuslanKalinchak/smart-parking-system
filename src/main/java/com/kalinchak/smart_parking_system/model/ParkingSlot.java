@@ -1,6 +1,5 @@
 package com.kalinchak.smart_parking_system.model;
 
-import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
