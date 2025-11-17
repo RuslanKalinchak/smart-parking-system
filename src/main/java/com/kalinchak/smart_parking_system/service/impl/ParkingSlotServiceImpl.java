@@ -1,12 +1,12 @@
 package com.kalinchak.smart_parking_system.service.impl;
 
+import com.kalinchak.smart_parking_system.mapper.ParkingSlotMapper;
 import com.kalinchak.smart_parking_system.model.*;
 import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
 import com.kalinchak.smart_parking_system.repository.ParkingLevelRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingSlotRepository;
 import com.kalinchak.smart_parking_system.service.ParkingSlotService;
-import com.kalinchak.smart_parking_system.util.ConverterUtils;
 import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
     private final ParkingSlotRepository parkingSlotRepository;
     private final ParkingLevelRepository parkingLevelRepository;
     private final ParkingLotRepository parkingLotRepository;
+    private final ParkingSlotMapper parkingSlotMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -38,7 +39,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         ParkingLevel level = parkingLevelRepository.findByLevelNumberAndParkingLotId(slotDto.levelNumber(), lotId)
                 .orElseThrow(() -> new IllegalArgumentException("Parking level %d for lot %d not found".formatted(slotDto.levelNumber(), lotId)));
 
-        ParkingSlot slot = ConverterUtils.dtoToParkingSlot(slotDto, level);
+        ParkingSlot slot = parkingSlotMapper.fromDto(slotDto, level);
 
         return new ParkingSlotDto(parkingSlotRepository.save(slot));
     }

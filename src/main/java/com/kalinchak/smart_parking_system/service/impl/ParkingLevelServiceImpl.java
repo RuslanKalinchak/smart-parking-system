@@ -1,12 +1,12 @@
 package com.kalinchak.smart_parking_system.service.impl;
 
+import com.kalinchak.smart_parking_system.mapper.ParkingLevelMapper;
 import com.kalinchak.smart_parking_system.model.ParkingLevel;
 import com.kalinchak.smart_parking_system.model.ParkingLot;
 import com.kalinchak.smart_parking_system.model.dto.ParkingLevelDto;
 import com.kalinchak.smart_parking_system.repository.ParkingLevelRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.service.ParkingLevelService;
-import com.kalinchak.smart_parking_system.util.ConverterUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +17,12 @@ public class ParkingLevelServiceImpl implements ParkingLevelService {
 
     private final ParkingLotRepository parkingLotRepository;
     private final ParkingLevelRepository parkingLevelRepository;
+    private final ParkingLevelMapper parkingLevelMapper;
 
     @Override
     @Transactional
     public ParkingLevelDto addParkingLevel(final long lotId, final ParkingLevelDto levelDto) {
-        ParkingLevel level = ConverterUtils.dtoToParkingLevel(levelDto, findParkingLot(lotId));
+        ParkingLevel level = parkingLevelMapper.fromDto(levelDto, findParkingLot(lotId));
         return new ParkingLevelDto(parkingLevelRepository.save(level));
     }
 

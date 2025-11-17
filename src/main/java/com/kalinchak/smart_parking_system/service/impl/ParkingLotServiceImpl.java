@@ -1,10 +1,10 @@
 package com.kalinchak.smart_parking_system.service.impl;
 
+import com.kalinchak.smart_parking_system.mapper.ParkingLotMapper;
 import com.kalinchak.smart_parking_system.model.ParkingLot;
 import com.kalinchak.smart_parking_system.model.dto.ParkingLotDto;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.service.ParkingLotService;
-import com.kalinchak.smart_parking_system.util.ConverterUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParkingLotServiceImpl implements ParkingLotService {
 
     private final ParkingLotRepository parkingLotRepository;
+    private final ParkingLotMapper parkingLotMapper;
 
     @Override
     @Transactional
     public ParkingLotDto addParkingLot(final ParkingLotDto lotDto) {
-        ParkingLot parkingLot = ConverterUtils.dtoToParkingLot(lotDto);
+        ParkingLot parkingLot = parkingLotMapper.fromDto(lotDto);
         return new ParkingLotDto(parkingLotRepository.save(parkingLot));
     }
 
