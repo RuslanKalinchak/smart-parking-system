@@ -1,7 +1,7 @@
 package com.kalinchak.smart_parking_system.controller;
 
 import com.kalinchak.smart_parking_system.controller.configuration.TestContainersConfig;
-import com.kalinchak.smart_parking_system.model.ParkingSlot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingSlot;
 import com.kalinchak.smart_parking_system.model.SlotStatus;
 import com.kalinchak.smart_parking_system.model.VehicleType;
 import com.kalinchak.smart_parking_system.model.dto.CheckInTicketDto;

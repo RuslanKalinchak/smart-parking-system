@@ -1,6 +1,6 @@
 package com.kalinchak.smart_parking_system.model.dto;
 
-import com.kalinchak.smart_parking_system.model.CheckInTicket;
+import com.kalinchak.smart_parking_system.model.entity.CheckInTicket;
 
 import java.time.LocalDateTime;
 

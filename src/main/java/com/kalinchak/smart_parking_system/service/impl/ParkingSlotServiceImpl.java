@@ -3,6 +3,8 @@ package com.kalinchak.smart_parking_system.service.impl;
 import com.kalinchak.smart_parking_system.mapper.ParkingSlotMapper;
 import com.kalinchak.smart_parking_system.model.*;
 import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
+import com.kalinchak.smart_parking_system.model.entity.ParkingLevel;
+import com.kalinchak.smart_parking_system.model.entity.ParkingSlot;
 import com.kalinchak.smart_parking_system.repository.ParkingLevelRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.repository.ParkingSlotRepository;

@@ -21,7 +21,7 @@ public class ParkingLotController {
     }
 
     @DeleteMapping("/remove-lot/{lotId}")
-    public ResponseEntity<Void> removeParkingLot(@PathVariable Long lotId) {
+    public ResponseEntity<Void> removeParkingLot(@PathVariable long lotId) {
         parkingLotService.removeParkingLot(lotId);
         return ResponseEntity.ok().build();
     }

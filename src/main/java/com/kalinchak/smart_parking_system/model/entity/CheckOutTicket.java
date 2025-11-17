@@ -1,4 +1,4 @@
-package com.kalinchak.smart_parking_system.model;
+package com.kalinchak.smart_parking_system.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

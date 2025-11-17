@@ -1,6 +1,6 @@
 package com.kalinchak.smart_parking_system.model.dto;
 
-import com.kalinchak.smart_parking_system.model.ParkingLevel;
+import com.kalinchak.smart_parking_system.model.entity.ParkingLevel;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.kalinchak.smart_parking_system.repository;
 
 import com.kalinchak.smart_parking_system.model.CheckInStatus;
-import com.kalinchak.smart_parking_system.model.CheckInTicket;
+import com.kalinchak.smart_parking_system.model.entity.CheckInTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface CheckInTicketRepository extends JpaRepository<CheckInTicket, Long> {
 
     Optional<CheckInTicket> findByVehicle_LicensePlateAndStatus(
-            String licensePlate,
-            CheckInStatus status
+            final String licensePlate,
+            final CheckInStatus status
     );
 
-    List<CheckInTicket> findAllByStatus(CheckInStatus status);
+    List<CheckInTicket> findAllByStatus(final CheckInStatus status);
 }

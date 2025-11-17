@@ -1,6 +1,6 @@
 package com.kalinchak.smart_parking_system.repository;
 
-import com.kalinchak.smart_parking_system.model.Vehicle;
+import com.kalinchak.smart_parking_system.model.entity.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

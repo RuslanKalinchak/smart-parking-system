@@ -1,7 +1,7 @@
 package com.kalinchak.smart_parking_system.service.impl;
 
 import com.kalinchak.smart_parking_system.mapper.ParkingLotMapper;
-import com.kalinchak.smart_parking_system.model.ParkingLot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingLot;
 import com.kalinchak.smart_parking_system.model.dto.ParkingLotDto;
 import com.kalinchak.smart_parking_system.repository.ParkingLotRepository;
 import com.kalinchak.smart_parking_system.service.ParkingLotService;

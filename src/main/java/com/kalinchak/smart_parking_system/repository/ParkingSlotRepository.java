@@ -1,6 +1,6 @@
 package com.kalinchak.smart_parking_system.repository;
 
-import com.kalinchak.smart_parking_system.model.ParkingSlot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingSlot;
 import com.kalinchak.smart_parking_system.model.SlotStatus;
 import com.kalinchak.smart_parking_system.model.SlotType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> {
 
-    List<ParkingSlot> findByTypeInAndStatus(List<SlotType> types, SlotStatus status);
+    List<ParkingSlot> findByTypeInAndStatus(final List<SlotType> types, final SlotStatus status);
 
-    Optional<ParkingSlot> findBySlotCode(String slotCode);
+    Optional<ParkingSlot> findBySlotCode(final String slotCode);
 }

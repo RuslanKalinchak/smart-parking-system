@@ -1,6 +1,6 @@
 package com.kalinchak.smart_parking_system.service;
 
-import com.kalinchak.smart_parking_system.model.ParkingSlot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingSlot;
 import com.kalinchak.smart_parking_system.model.VehicleType;
 import com.kalinchak.smart_parking_system.model.dto.ParkingSlotDto;
 

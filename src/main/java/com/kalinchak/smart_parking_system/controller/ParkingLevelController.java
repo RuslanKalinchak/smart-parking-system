@@ -15,14 +15,14 @@ public class ParkingLevelController {
 
     @PostMapping("/add-level")
     public ResponseEntity<ParkingLevelDto> addParkingLevel(
-            @RequestParam Long lotId,
+            @RequestParam long lotId,
             @RequestBody ParkingLevelDto level) {
         ParkingLevelDto savedLevel = parkingLevelService.addParkingLevel(lotId, level);
         return ResponseEntity.ok(savedLevel);
     }
 
     @DeleteMapping("/remove-level/{levelId}")
-    public ResponseEntity<Void> removeParkingLevel(@PathVariable Long levelId) {
+    public ResponseEntity<Void> removeParkingLevel(@PathVariable long levelId) {
         parkingLevelService.removeParkingLevel(levelId);
         return ResponseEntity.ok().build();
     }

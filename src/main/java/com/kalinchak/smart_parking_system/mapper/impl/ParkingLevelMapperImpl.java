@@ -2,9 +2,9 @@ package com.kalinchak.smart_parking_system.mapper.impl;
 
 import com.kalinchak.smart_parking_system.mapper.ParkingLevelMapper;
 import com.kalinchak.smart_parking_system.mapper.ParkingSlotMapper;
-import com.kalinchak.smart_parking_system.model.ParkingLevel;
-import com.kalinchak.smart_parking_system.model.ParkingLot;
-import com.kalinchak.smart_parking_system.model.ParkingSlot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingLevel;
+import com.kalinchak.smart_parking_system.model.entity.ParkingLot;
+import com.kalinchak.smart_parking_system.model.entity.ParkingSlot;
 import com.kalinchak.smart_parking_system.model.dto.ParkingLevelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

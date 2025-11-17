@@ -1,5 +1,6 @@
-package com.kalinchak.smart_parking_system.model;
+package com.kalinchak.smart_parking_system.model.entity;
 
+import com.kalinchak.smart_parking_system.model.CheckInStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
