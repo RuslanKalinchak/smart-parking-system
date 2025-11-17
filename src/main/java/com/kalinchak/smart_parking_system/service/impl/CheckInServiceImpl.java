@@ -32,7 +32,7 @@ public class CheckInServiceImpl implements CheckInService {
     public CheckInTicketDto checkIn(final VehicleDto vehicleDto) {
 
         Vehicle vehicle = vehicleRepository.findById(vehicleDto.licensePlate())
-                .orElseGet(() -> vehicleRepository.save(new Vehicle(vehicleDto)));
+                .orElseGet(() -> vehicleRepository.save(new Vehicle(vehicleDto.licensePlate(), vehicleDto.vehicleType())));
 
         ParkingSlot availableParkingSlot = parkingSlotService.findAvailableParkingSlot(vehicle.getVehicleType());
         availableParkingSlot.setStatus(SlotStatus.OCCUPIED);
@@ -45,7 +45,7 @@ public class CheckInServiceImpl implements CheckInService {
                 .status(CheckInStatus.ACTIVE)
                 .build();
 
-       return new CheckInTicketDto(checkInTicketRepository.save(checkInTicket));
+        return new CheckInTicketDto(checkInTicketRepository.save(checkInTicket));
     }
 
     @Override

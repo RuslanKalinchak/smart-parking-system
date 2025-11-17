@@ -13,7 +13,7 @@ public class ParkingFeeStrategyFactory {
             VehicleType.TRUCK, new TruckFeeStrategy()
     );
 
-    public static ParkingFeeStrategy getStrategy(VehicleType type) {
+    public static ParkingFeeStrategy getStrategy(VehicleType type) throws IllegalArgumentException {
         return STRATEGIES.get(type);
     }
 }

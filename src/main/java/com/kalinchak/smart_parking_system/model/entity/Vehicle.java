@@ -7,12 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import com.kalinchak.smart_parking_system.model.dto.VehicleDto;
+import lombok.*;
 
 @Entity
 @Table(name = "vehicles")
@@ -29,9 +24,4 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VehicleType vehicleType;
-
-    public Vehicle(final VehicleDto vehicleDto) {
-        this.licensePlate = vehicleDto.licensePlate();
-        this.vehicleType = vehicleDto.vehicleType();
-    }
 }
