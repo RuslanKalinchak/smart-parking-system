@@ -21,7 +21,7 @@ public class CheckInController {
         return ResponseEntity.ok(checkInService.checkIn(vehicleDto));
     }
 
-    @GetMapping("/find-all-active-check-ins")
+    @GetMapping("/get-active-check-ins")
     public ResponseEntity<List<CheckInTicketDto>> getActiveCheckIns() {
         return ResponseEntity.ok(checkInService.findAllActiveCheckIns());
     }

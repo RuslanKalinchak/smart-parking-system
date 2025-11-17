@@ -10,12 +10,14 @@ import com.kalinchak.smart_parking_system.repository.ParkingSlotRepository;
 import com.kalinchak.smart_parking_system.util.SlotCompatibilityConvertorUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,6 +27,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -73,6 +76,25 @@ class CheckInControllerIT {
 
         assertThat(actualParkingSlot.getStatus()).isEqualTo(SlotStatus.OCCUPIED);
         assertThat(actualParkingSlot.getType()).isIn(SlotCompatibilityConvertorUtils.getCompatibleTypes(vehicle.vehicleType()));
+    }
+
+    @Test
+    void whenGetAvailableCheckIns_thenReturnSuccessResponse() {
+        //Given
+        URI uri = UriComponentsBuilder.fromPath("/api/check-in/get-active-check-ins")
+                .build().toUri();
+
+        //When
+        ResponseEntity<List<CheckInTicketDto>> response = restClient.get()
+                .uri(uri)
+                .retrieve()
+                .toEntity(new ParameterizedTypeReference<>() {});
+
+        //Then
+        List<CheckInTicketDto> checkIns = response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(checkIns).isNotNull();
+        assertThat(checkIns.size()).isEqualTo(3);
     }
 
     static Stream<Arguments> provideCheckInParameters() {
