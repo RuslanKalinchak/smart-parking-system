@@ -48,7 +48,6 @@ class CheckInServiceTest {
 
     @Test
     void givenNewVehicle_whenCreateCheckIn_thenCreateVehicleAndAssignSlot() {
-
         //Given
         VehicleDto vehicleDto = new VehicleDto("AA1111BB", VehicleType.CAR);
 
